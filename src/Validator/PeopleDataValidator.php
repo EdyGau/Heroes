@@ -2,7 +2,7 @@
 
 namespace App\Validator;
 
-class HeroDataValidator
+class PeopleDataValidator
 {
     private const REQUIRED_KEYS = [
         'name',

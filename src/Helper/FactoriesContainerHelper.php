@@ -2,7 +2,7 @@
 
 namespace App\Helper;
 
-use App\Factory\HeroFactory;
+use App\Factory\PeopleFactory;
 use App\Factory\VehicleFactory;
 use App\Factory\StarshipFactory;
 use App\Factory\FilmFactory;
@@ -14,7 +14,7 @@ use App\Factory\SpeciesFactory;
  */
 class FactoriesContainerHelper
 {
-    private HeroFactory $heroFactory;
+    private PeopleFactory $peopleFactory;
     private VehicleFactory $vehicleFactory;
     private StarshipFactory $starshipFactory;
     private FilmFactory $filmFactory;
@@ -22,14 +22,14 @@ class FactoriesContainerHelper
     private SpeciesFactory $speciesFactory;
 
     public function __construct(
-        HeroFactory $heroFactory,
+        PeopleFactory $peopleFactory,
         VehicleFactory $vehicleFactory,
         StarshipFactory $starshipFactory,
         FilmFactory $filmFactory,
         PlanetFactory $planetFactory,
         SpeciesFactory $speciesFactory
     ) {
-        $this->heroFactory = $heroFactory;
+        $this->peopleFactory = $peopleFactory;
         $this->vehicleFactory = $vehicleFactory;
         $this->starshipFactory = $starshipFactory;
         $this->filmFactory = $filmFactory;
@@ -37,9 +37,9 @@ class FactoriesContainerHelper
         $this->speciesFactory = $speciesFactory;
     }
 
-    public function getHeroFactory(): HeroFactory
+    public function getPeopleFactory(): PeopleFactory
     {
-        return $this->heroFactory;
+        return $this->peopleFactory;
     }
 
     public function getVehicleFactory(): VehicleFactory

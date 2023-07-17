@@ -54,7 +54,7 @@ class Starship
     #[ORM\Column(type: "string")]
     private ?string $starshipClass;
 
-    #[ORM\ManyToMany(targetEntity: Hero::class, mappedBy: 'starships')]
+    #[ORM\ManyToMany(targetEntity: People::class, mappedBy: 'starships')]
     private Collection $pilots;
 
     #[ORM\Column(type: "datetime")]

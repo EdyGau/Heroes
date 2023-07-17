@@ -53,8 +53,8 @@ class Species
     #[ORM\Column(type: "string")]
     private ?string $url = null;
 
-    #[ORM\ManyToMany(targetEntity: Hero::class, mappedBy: 'species')]
-    private Collection $heroes;
+    #[ORM\ManyToMany(targetEntity: People::class, mappedBy: 'species')]
+    private Collection $people;
 
     /**
      * @return string|null
@@ -266,8 +266,7 @@ class Species
 
     public function __construct()
     {
-        $this->heroes = new ArrayCollection();
-        $this->films = new ArrayCollection();
+        $this->people = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -275,26 +274,23 @@ class Species
         return $this->id;
     }
 
-    /**
-     * @return Collection<int, Hero>
-     */
-    public function getHeroes(): Collection
+    public function getPeople(): Collection
     {
-        return $this->heroes;
+        return $this->people;
     }
 
-    public function addHero(Hero $hero): void
+    public function addPeople(People $people): void
     {
-        if (!$this->heroes->contains($hero)) {
-            $this->heroes->add($hero);
-            $hero->addSpecies($this);
+        if (!$this->people->contains($people)) {
+            $this->people->add($people);
+            $people->addSpecies($this);
         }
     }
 
-    public function removeHero(Hero $hero): void
+    public function removePeople(People $people): void
     {
-        if ($this->heroes->removeElement($hero)) {
-            $hero->removeSpecies($this);
+        if ($this->people->removeElement($people)) {
+            $people->removeSpecies($this);
         }
     }
 }

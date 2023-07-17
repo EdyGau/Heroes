@@ -19,7 +19,7 @@ class ProcessDataHelper
     {
         switch ($dataType) {
             case 'people':
-                $this->dataProcessorService->processHeroes($data);
+                $this->dataProcessorService->processPeople($data);
                 break;
             case 'vehicles':
                 $this->dataProcessorService->processVehicles($data);

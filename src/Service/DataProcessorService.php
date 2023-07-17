@@ -3,7 +3,7 @@
 
 namespace App\Service;
 
-use App\Entity\Hero;
+use App\Entity\People;
 use App\Helper\FactoriesContainerHelper;
 use App\Helper\RepositoriesContainerHelper;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,26 +27,26 @@ class DataProcessorService
     /**
      * Processes and adds heroes to db considering their relationships.
      *
-     * @param array $data An array of hero data.
+     * @param array $data An array of people data.
      * @return void
      */
-    public function processHeroes(array $data): void
+    public function processPeople(array $data): void
     {
-        $repository = $this->repositoriesContainer->getHeroRepository();
+        $repository = $this->repositoriesContainer->getPeopleRepository();
 
         foreach ($data as $itemData) {
 
-            $hero = $repository->findOneBy(['url' => $itemData['url']]);
+            $people = $repository->findOneBy(['url' => $itemData['url']]);
 
-            if (!$hero) {
-                $hero = $this->factoriesContainer->getHeroFactory()->create($itemData);
+            if (!$people) {
+                $people = $this->factoriesContainer->getPeopleFactory()->create($itemData);
 
-                $this->addFilmsToHero($hero, $itemData['films']);
-                $this->addSpeciesToHero($hero, $itemData['species']);
-                $this->addVehiclesToHero($hero, $itemData['vehicles']);
-                $this->addStarshipsToHero($hero, $itemData['starships']);
+                $this->addFilmsToHero($people, $itemData['films']);
+                $this->addSpeciesToHero($people, $itemData['species']);
+                $this->addVehiclesToHero($people, $itemData['vehicles']);
+                $this->addStarshipsToHero($people, $itemData['starships']);
 
-                $this->entityManager->persist($hero);
+                $this->entityManager->persist($people);
             }
         }
     }
@@ -147,11 +147,11 @@ class DataProcessorService
     }
 
     /**
-     * @param Hero $hero
+     * @param People $people
      * @param array $filmUrls
      * @return void
      */
-    private function addFilmsToHero(Hero $hero, array $filmUrls): void
+    private function addFilmsToHero(People $people, array $filmUrls): void
     {
         $repository = $this->repositoriesContainer->getFilmRepository();
 
@@ -159,17 +159,17 @@ class DataProcessorService
             $film = $repository->findOneBy(['url' => $url]);
 
             if ($film) {
-                $hero->addFilm($film);
+                $people->addFilm($film);
             }
         }
     }
 
     /**
-     * @param Hero $hero
+     * @param People $people
      * @param array $speciesUrls
      * @return void
      */
-    private function addSpeciesToHero(Hero $hero, array $speciesUrls): void
+    private function addSpeciesToHero(People $people, array $speciesUrls): void
     {
         $repository = $this->repositoriesContainer->getSpeciesRepository();
 
@@ -177,17 +177,17 @@ class DataProcessorService
             $species = $repository->findOneBy(['url' => $url]);
 
             if ($species) {
-                $hero->addSpecies($species);
+                $people->addSpecies($species);
             }
         }
     }
 
     /**
-     * @param Hero $hero
+     * @param People $people
      * @param array $vehicleUrls
      * @return void
      */
-    private function addVehiclesToHero(Hero $hero, array $vehicleUrls): void
+    private function addVehiclesToHero(People $people, array $vehicleUrls): void
     {
         $repository = $this->repositoriesContainer->getVehicleRepository();
 
@@ -195,17 +195,17 @@ class DataProcessorService
             $vehicle = $repository->findOneBy(['url' => $url]);
 
             if ($vehicle) {
-                $hero->addVehicle($vehicle);
+                $people->addVehicle($vehicle);
             }
         }
     }
 
     /**
-     * @param Hero $hero
+     * @param People $people
      * @param array $starshipUrls
      * @return void
      */
-    private function addStarshipsToHero(Hero $hero, array $starshipUrls): void
+    private function addStarshipsToHero(People $people, array $starshipUrls): void
     {
         $repository = $this->repositoriesContainer->getStarshipRepository();
 
@@ -213,7 +213,7 @@ class DataProcessorService
             $starship = $repository->findOneBy(['url' => $url]);
 
             if ($starship) {
-                $hero->addStarship($starship);
+                $people->addStarship($starship);
             }
         }
     }

@@ -87,7 +87,7 @@ class Vehicle
     /**
      * @var Collection
      */
-    #[ORM\ManyToMany(targetEntity: Hero::class, mappedBy: 'vehicles')]
+    #[ORM\ManyToMany(targetEntity: People::class, mappedBy: 'vehicles')]
     private Collection $pilots;
 
     #[ORM\Column(type: "datetime")]

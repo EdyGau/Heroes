@@ -3,7 +3,7 @@
 namespace App\Helper;
 
 use App\Repository\FilmRepository;
-use App\Repository\HeroRepository;
+use App\Repository\PeopleRepository;
 use App\Repository\PlanetRepository;
 use App\Repository\SpeciesRepository;
 use App\Repository\StarshipRepository;
@@ -14,7 +14,7 @@ use App\Repository\VehicleRepository;
  */
 class RepositoriesContainerHelper
 {
-    private HeroRepository $heroRepository;
+    private PeopleRepository $peopleRepository;
     private VehicleRepository $vehicleRepository;
     private StarshipRepository $starshipRepository;
     private FilmRepository $filmRepository;
@@ -22,14 +22,14 @@ class RepositoriesContainerHelper
     private SpeciesRepository $speciesRepository;
 
     public function __construct(
-        HeroRepository $heroRepository,
+        PeopleRepository $peopleRepository,
         VehicleRepository $vehicleRepository,
         StarshipRepository $starshipRepository,
         FilmRepository $filmRepository,
         PlanetRepository $planetRepository,
         SpeciesRepository $speciesRepository
     ) {
-        $this->heroRepository = $heroRepository;
+        $this->peopleRepository = $peopleRepository;
         $this->vehicleRepository = $vehicleRepository;
         $this->starshipRepository = $starshipRepository;
         $this->filmRepository = $filmRepository;
@@ -37,9 +37,9 @@ class RepositoriesContainerHelper
         $this->speciesRepository = $speciesRepository;
     }
 
-    public function getHeroRepository(): HeroRepository
+    public function getPeopleRepository(): PeopleRepository
     {
-        return $this->heroRepository;
+        return $this->peopleRepository;
     }
 
     public function getVehicleRepository(): VehicleRepository

@@ -19,8 +19,8 @@ class Film
     #[ORM\Column(type: "string")]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Hero::class, mappedBy: 'films')]
-    private Collection $heroes;
+    #[ORM\ManyToMany(targetEntity: People::class, mappedBy: 'films')]
+    private Collection $people;
 
     #[ORM\Column]
     private ?int $episode = null;
@@ -48,7 +48,7 @@ class Film
 
     public function __construct()
     {
-        $this->heroes = new ArrayCollection();
+        $this->people = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -66,26 +66,23 @@ class Film
         $this->name = $name;
     }
 
-    /**
-     * @return Collection<int, Hero>
-     */
-    public function getHeroes(): Collection
+    public function getPeople(): Collection
     {
-        return $this->heroes;
+        return $this->people;
     }
 
-    public function addHero(Hero $hero): void
+    public function addPeople(People $people): void
     {
-        if (!$this->heroes->contains($hero)) {
-            $this->heroes->add($hero);
-            $hero->addFilm($this);
+        if (!$this->people->contains($people)) {
+            $this->people->add($people);
+            $people->addFilm($this);
         }
     }
 
-    public function removeHero(Hero $hero): void
+    public function removePeople(People $people): void
     {
-        if ($this->heroes->removeElement($hero)) {
-            $hero->removeFilm($this);
+        if ($this->people->removeElement($people)) {
+            $people->removeFilm($this);
         }
     }
 

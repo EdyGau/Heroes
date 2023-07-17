@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\HeroRepository;
+use App\Repository\PeopleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: HeroRepository::class)]
-class Hero
+#[ORM\Entity(repositoryClass: PeopleRepository::class)]
+class People
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -45,13 +45,13 @@ class Hero
     #[ORM\Column(type: "string")]
     private ?string $homeworld = '';
 
-    #[ORM\ManyToMany(targetEntity: Species::class, inversedBy: 'heroes')]
+    #[ORM\ManyToMany(targetEntity: Species::class, inversedBy: 'people')]
     private Collection $species;
 
-    #[ORM\ManyToMany(targetEntity: Vehicle::class, inversedBy: 'heroes')]
+    #[ORM\ManyToMany(targetEntity: Vehicle::class, inversedBy: 'pilots')]
     private Collection $vehicles;
 
-    #[ORM\ManyToMany(targetEntity: Film::class, inversedBy: 'heroes')]
+    #[ORM\ManyToMany(targetEntity: Film::class, inversedBy: 'people')]
     private Collection $films;
 
     #[ORM\ManyToMany(targetEntity: Starship::class, inversedBy: 'pilots')]
@@ -197,7 +197,7 @@ class Hero
     {
         if (!$this->films->contains($film)) {
             $this->films->add($film);
-            $film->addHero($this);
+            $film->addPeople($this);
         }
     }
 
