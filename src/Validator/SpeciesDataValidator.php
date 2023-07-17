@@ -2,9 +2,9 @@
 
 namespace App\Validator;
 
-class SpeciesDataValidator
+class SpeciesDataValidator extends BaseValidator
 {
-    private const REQUIRED_KEYS = [
+    protected const REQUIRED_KEYS = [
         'name',
         'classification',
         'designation',
@@ -22,10 +22,6 @@ class SpeciesDataValidator
 
     public static function validate(array $data): void
     {
-        foreach (self::REQUIRED_KEYS as $key) {
-            if (!array_key_exists($key, $data)) {
-                throw new \InvalidArgumentException(sprintf('Missing required key "%s" in data.', $key));
-            }
-        }
+        static::checkRequiredKeys($data);
     }
 }

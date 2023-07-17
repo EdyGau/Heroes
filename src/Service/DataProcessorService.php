@@ -41,10 +41,10 @@ class DataProcessorService
             if (!$people) {
                 $people = $this->factoriesContainer->getPeopleFactory()->create($itemData);
 
-                $this->addFilmsToHero($people, $itemData['films']);
-                $this->addSpeciesToHero($people, $itemData['species']);
-                $this->addVehiclesToHero($people, $itemData['vehicles']);
-                $this->addStarshipsToHero($people, $itemData['starships']);
+                $this->addFilmsToPeople($people, $itemData['films']);
+                $this->addSpeciesToPeople($people, $itemData['species']);
+                $this->addVehiclesToPeople($people, $itemData['vehicles']);
+                $this->addStarshipsToPeople($people, $itemData['starships']);
 
                 $this->entityManager->persist($people);
             }
@@ -151,7 +151,7 @@ class DataProcessorService
      * @param array $filmUrls
      * @return void
      */
-    private function addFilmsToHero(People $people, array $filmUrls): void
+    private function addFilmsToPeople(People $people, array $filmUrls): void
     {
         $repository = $this->repositoriesContainer->getFilmRepository();
 
@@ -169,7 +169,7 @@ class DataProcessorService
      * @param array $speciesUrls
      * @return void
      */
-    private function addSpeciesToHero(People $people, array $speciesUrls): void
+    private function addSpeciesToPeople(People $people, array $speciesUrls): void
     {
         $repository = $this->repositoriesContainer->getSpeciesRepository();
 
@@ -187,7 +187,7 @@ class DataProcessorService
      * @param array $vehicleUrls
      * @return void
      */
-    private function addVehiclesToHero(People $people, array $vehicleUrls): void
+    private function addVehiclesToPeople(People $people, array $vehicleUrls): void
     {
         $repository = $this->repositoriesContainer->getVehicleRepository();
 
@@ -205,7 +205,7 @@ class DataProcessorService
      * @param array $starshipUrls
      * @return void
      */
-    private function addStarshipsToHero(People $people, array $starshipUrls): void
+    private function addStarshipsToPeople(People $people, array $starshipUrls): void
     {
         $repository = $this->repositoriesContainer->getStarshipRepository();
 

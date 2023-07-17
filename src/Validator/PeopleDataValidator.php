@@ -2,9 +2,9 @@
 
 namespace App\Validator;
 
-class PeopleDataValidator
+class PeopleDataValidator extends BaseValidator
 {
-    private const REQUIRED_KEYS = [
+    protected const REQUIRED_KEYS = [
         'name',
         'height',
         'mass',
@@ -19,10 +19,6 @@ class PeopleDataValidator
 
     public static function validate(array $data): void
     {
-        foreach (self::REQUIRED_KEYS as $key) {
-            if (!array_key_exists($key, $data)) {
-                throw new \InvalidArgumentException(sprintf('Missing required key "%s" in data.', $key));
-            }
-        }
+        static::checkRequiredKeys($data);
     }
 }

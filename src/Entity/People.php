@@ -185,9 +185,6 @@ class People
         $this->homeworld = $homeworld;
     }
 
-    /**
-     * @return Collection<int, Film>
-     */
     public function getFilms(): Collection
     {
         return $this->films;

@@ -2,9 +2,9 @@
 
 namespace App\Validator;
 
-class PlanetDataValidator
+class PlanetDataValidator extends BaseValidator
 {
-    private const REQUIRED_KEYS = [
+    protected const REQUIRED_KEYS = [
         'name',
         'rotation_period',
         'orbital_period',
@@ -21,10 +21,6 @@ class PlanetDataValidator
 
     public static function validate(array $data): void
     {
-        foreach (self::REQUIRED_KEYS as $key) {
-            if (!array_key_exists($key, $data)) {
-                throw new \InvalidArgumentException(sprintf('Missing required key "%s" in data.', $key));
-            }
-        }
+        static::checkRequiredKeys($data);
     }
 }
