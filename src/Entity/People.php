@@ -42,9 +42,6 @@ class People
     #[ORM\Column(type: "string")]
     private string $url;
 
-    #[ORM\Column(type: "string")]
-    private ?string $homeworld = '';
-
     #[ORM\ManyToMany(targetEntity: Species::class, inversedBy: 'people')]
     private Collection $species;
 
@@ -56,6 +53,9 @@ class People
 
     #[ORM\ManyToMany(targetEntity: Starship::class, inversedBy: 'pilots')]
     private Collection $starships;
+
+    #[ORM\ManyToOne(targetEntity: Planet::class, inversedBy: 'people')]
+    private Planet $homeworld;
 
     public function __construct()
     {
@@ -175,16 +175,6 @@ class People
         $this->gender = $gender;
     }
 
-    public function getHomeworld(): ?string
-    {
-        return $this->homeworld;
-    }
-
-    public function setHomeworld(string $homeworld): void
-    {
-        $this->homeworld = $homeworld;
-    }
-
     public function getFilms(): Collection
     {
         return $this->films;
@@ -252,5 +242,15 @@ class People
     public function removeStarship(Starship $starship): void
     {
         $this->starships->removeElement($starship);
+    }
+
+    public function getHomeworld(): Planet
+    {
+        return $this->homeworld;
+    }
+
+    public function setHomeworld(Planet $homeworld): void
+    {
+        $this->homeworld = $homeworld;
     }
 }

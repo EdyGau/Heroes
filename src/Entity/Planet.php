@@ -51,6 +51,14 @@ class Planet
     #[ORM\Column(type: "string")]
     private $url;
 
+    #[ORM\OneToMany(mappedBy: 'homeworld', targetEntity: People::class)]
+    private Collection $people;
+
+    public function __construct()
+    {
+        $this->people = new ArrayCollection();
+    }
+
     public function getId()
     {
         return $this->id;
@@ -179,5 +187,31 @@ class Planet
     public function setUrl($url): void
     {
         $this->url = $url;
+    }
+
+    public function getPeople(): Collection
+    {
+        return $this->people;
+    }
+
+    public function addPerson(People $person): static
+    {
+        if (!$this->people->contains($person)) {
+            $this->people->add($person);
+            $person->setHomeworld($this);
+        }
+
+        return $this;
+    }
+
+    public function removePerson(People $person): static
+    {
+        if ($this->people->removeElement($person)) {
+            if ($person->getHomeworld() === $this) {
+                $person->setHomeworld(null);
+            }
+        }
+
+        return $this;
     }
 }

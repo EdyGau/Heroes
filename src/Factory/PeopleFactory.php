@@ -27,7 +27,6 @@ class PeopleFactory
         $people->setEye($data['eye_color']);
         $people->setBirthdayYear($data['birth_year']);
         $people->setGender($data['gender']);
-        $people->setHomeworld($data['homeworld']);
         $people->setUrl($data['url']);
 
         return $people;

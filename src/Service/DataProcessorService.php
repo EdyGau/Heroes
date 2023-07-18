@@ -35,12 +35,13 @@ class DataProcessorService
         $repository = $this->repositoriesContainer->getPeopleRepository();
 
         foreach ($data as $itemData) {
-
             $people = $repository->findOneBy(['url' => $itemData['url']]);
+            $repository = $this->repositoriesContainer->getPlanetRepository();
 
             if (!$people) {
                 $people = $this->factoriesContainer->getPeopleFactory()->create($itemData);
 
+                $this->addHomeworld($people, $itemData['homeworld']);
                 $this->addFilmsToPeople($people, $itemData['films']);
                 $this->addSpeciesToPeople($people, $itemData['species']);
                 $this->addVehiclesToPeople($people, $itemData['vehicles']);
@@ -143,6 +144,21 @@ class DataProcessorService
             }
 
             $this->entityManager->persist($film);
+        }
+    }
+
+    /**
+     * @param People $people
+     * @param $url
+     * @return void
+     */
+    private function addHomeworld(People $people, $url): void
+    {
+        $repository = $this->repositoriesContainer->getPlanetRepository();
+        $planet = $repository->findOneBy(['url' => $url]);
+
+        if ($planet) {
+            $people->setHomeworld($planet);
         }
     }
 
